@@ -5,8 +5,9 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 
 from quant_trading.a_share import AShareConfig, run_a_share_backtest
+from quant_trading.app import export_result, format_metric
 from quant_trading.backtest import BacktestConfig, run_backtest
-from quant_trading.cli import main
+from quant_trading.cli import build_parser, main
 from quant_trading.data import generate_synthetic_data, normalize_ohlcv
 from quant_trading.strategy import sma_crossover_signals
 
@@ -60,6 +61,19 @@ class QuantTradingTests(unittest.TestCase):
             self.assertEqual(exit_code, 0)
             self.assertTrue((output_dir / "metrics.json").is_file())
             self.assertTrue((output_dir / "equity_curve.csv").is_file())
+
+    def test_desktop_app_command_is_registered(self):
+        args = build_parser().parse_args(["app"])
+        self.assertEqual(args.command, "app")
+
+    def test_desktop_helpers_format_and_export_a_result(self):
+        data = generate_synthetic_data(days=80, seed=5)
+        result = run_backtest(data, fast=5, slow=20)
+        self.assertEqual(format_metric("total_return", 0.01234), "1.23%")
+        self.assertEqual(format_metric("trade_count", 3.0), "3")
+        with TemporaryDirectory() as temporary_directory:
+            files = export_result(result, data, Path(temporary_directory))
+            self.assertTrue(all(path.is_file() for path in files))
 
     def test_a_share_buy_uses_integer_lots_and_available_cash(self):
         data = self._a_share_data([10, 10, 10, 11, 12, 13])

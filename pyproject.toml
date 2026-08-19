@@ -27,5 +27,8 @@ classifiers = [
 [project.scripts]
 quant-trading = "quant_trading.cli:main"
 
+[project.gui-scripts]
+quant-trading-app = "quant_trading.app:run_app"
+
 [tool.setuptools.packages.find]
 include = ["quant_trading*"]

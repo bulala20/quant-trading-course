@@ -93,11 +93,16 @@ def build_parser() -> argparse.ArgumentParser:
     a_share = subparsers.add_parser("a-share", help="run an A-share research backtest from a local CSV")
     a_share.add_argument("csv", type=Path, help="path to an OHLCV CSV file; optional Suspended column is supported")
     _a_share_arguments(a_share)
+    subparsers.add_parser("app", help="launch the local desktop research workbench")
     return parser
 
 
 def main(argv: Iterable[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "app":
+        from .app import run_app
+
+        return run_app()
     if args.command == "demo":
         data = generate_synthetic_data(days=args.days, seed=args.seed)
     elif args.command == "a-share":

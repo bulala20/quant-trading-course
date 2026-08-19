@@ -19,6 +19,18 @@ python -m quant_trading demo --output-dir outputs\demo
 
 如果直接下载了源码压缩包，从 `cd quant-trading-course` 开始执行即可。仓库发布后，将上面的 `<your-account>` 换成实际 GitHub 用户名。
 
+### 启动桌面程序
+
+Windows 环境可以直接启动图形界面：
+
+```powershell
+python -m quant_trading app
+```
+
+桌面程序支持生成演示数据或选择本地 CSV，在“通用回测”和“A 股规则”间切换，并显示净值曲线、指标和交易记录。点击“导出结果”后，才会向你选择的本地文件夹写入 CSV 与 JSON；程序不连接券商、不读取账户，也不发送订单。
+
+安装项目后还可以运行 `quant-trading-app`，或者在 Windows 双击 `run_desktop_app.bat` 启动。若系统没有安装依赖，先执行上一节的 `python -m pip install -r requirements.txt`。
+
 演示会生成合成日线数据，终端打印累计收益、年化收益、最大回撤、波动率、夏普比率和交易次数，并在 `outputs/demo` 下写入：
 
 - `input_data.csv`：演示输入数据
