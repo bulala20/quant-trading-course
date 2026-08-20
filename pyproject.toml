@@ -1,13 +1,14 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "quant-trading-course"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Chinese-first stock quant research and backtesting starter project"
 readme = "README.md"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
 dependencies = [
   "pandas>=1.5,<3",
@@ -16,13 +17,18 @@ dependencies = [
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Education",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.13",
   "Topic :: Office/Business :: Financial :: Investment",
 ]
+
+[project.urls]
+Homepage = "https://github.com/bulala20/quant-trading-course"
+Repository = "https://github.com/bulala20/quant-trading-course"
+Issues = "https://github.com/bulala20/quant-trading-course/issues"
+Documentation = "https://github.com/bulala20/quant-trading-course#readme"
 
 [project.scripts]
 quant-trading = "quant_trading.cli:main"
