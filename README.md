@@ -11,7 +11,7 @@
 在 PowerShell 中执行：
 
 ```powershell
-git clone https://github.com/<your-account>/quant-trading-course.git
+git clone https://github.com/bulala20/quant-trading-course.git
 cd quant-trading-course
 python -m pip install -r requirements.txt
 python -m quant_trading demo --output-dir outputs\demo
@@ -75,6 +75,27 @@ python .\tools\screen_a_share.py --top 15
 筛选工具读取东方财富公开网页接口，该接口不是稳定的数据服务契约，可能限流、变更或中断。请在研究记录中保存数据时间，并在持牌行情终端中复核价格。
 
 安装后也可以使用命令：`quant-trading demo`。
+
+### 安装已发布的 Python 包
+
+每个 `v*` 标签都会触发 GitHub Actions，构建标准的 wheel 和 source distribution，并将文件上传到 GitHub Release 的附件中。你可以在仓库的 [Releases](https://github.com/bulala20/quant-trading-course/releases) 页面下载后安装：
+
+```powershell
+python -m pip install .\quant_trading_course-0.1.1-py3-none-any.whl
+quant-trading demo --output-dir outputs\release-demo
+```
+
+GitHub Packages 当前没有 Python/PyPI registry；它支持容器、npm、RubyGems、Maven/Gradle 和 NuGet 等 registry。因此本项目不会伪造一个不可用的 `twine upload` 地址，而是使用 GitHub Release 分发构建产物。若要让用户直接执行 `pip install quant-trading-course`，需要先在 PyPI 配置名为 `pypi` 的 GitHub Trusted Publisher（仓库、工作流文件为 `.github/workflows/publish-pypi.yml`），再手动运行该工作流。
+
+维护者可在本地验证发布文件：
+
+```powershell
+python -m pip install --upgrade build twine
+python -m build --sdist --wheel
+python -m twine check dist\*
+```
+
+发布仅在推送 `v*` 标签后执行，工作流只写入 GitHub Release，不连接券商、不读取账户，也不会自动下单。
 
 ## 许可与边界
 

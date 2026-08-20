@@ -32,3 +32,9 @@ jobs:
 
       - name: Run demo smoke test
         run: python -m quant_trading demo --days 120 --output-dir /tmp/quant-trading-demo
+
+      - name: Build distributions
+        run: |
+          python -m pip install build twine
+          python -m build --sdist --wheel
+          python -m twine check dist/*
